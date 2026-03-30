@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudoku + Doggos</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>🧩 Sudoku</h1>
+    <p class="subtitle">Solve the puzzle. Get doggos. 🐶</p>
+  </header>
+
+  <main>
+    <div class="controls">
+      <label for="difficulty">Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="medium" selected>Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <button id="new-game">New Game</button>
+    </div>
+
+    <div class="game-area">
+      <div id="board-container">
+        <div id="board"></div>
+        <div id="status"></div>
+      </div>
+
+      <div id="doggo-panel">
+        <h2>Your Doggos</h2>
+        <p class="doggo-hint">Solve a row, column, or 3×3 box to earn a doggo!</p>
+        <div id="doggo-gallery"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Reward overlay -->
+  <div id="reward-overlay" class="hidden">
+    <div id="reward-card">
+      <button id="close-reward" aria-label="Close">✕</button>
+      <p id="reward-label"></p>
+      <img id="reward-img" src="" alt="cute dog" />
+      <p id="reward-caption"></p>
+    </div>
+  </div>
+
+  <script src="sudoku.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
