@@ -82,8 +82,9 @@ main { max-width: 960px; margin: 0 auto; padding: 1.5rem 1rem; }
 #board {
   display: grid;
   grid-template-columns: repeat(9, 1fr);
+  grid-template-rows: repeat(9, 1fr);
   width: min(450px, 95vw);
-  aspect-ratio: 1;
+  height: min(450px, 95vw);
   border: 3px solid var(--box-border);
   border-radius: 6px;
   overflow: hidden;
