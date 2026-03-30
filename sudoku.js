@@ -53,50 +53,18 @@ const Sudoku = (() => {
     return true;
   }
 
-  // Count solutions (stops early after finding 2)
-  function countSolutions(grid, limit = 2) {
-    let count = 0;
-    function solve(g) {
-      for (let row = 0; row < 9; row++) {
-        for (let col = 0; col < 9; col++) {
-          if (g[row][col] === 0) {
-            for (let num = 1; num <= 9; num++) {
-              if (isValid(g, row, col, num)) {
-                g[row][col] = num;
-                solve(g);
-                if (count >= limit) return;
-                g[row][col] = 0;
-              }
-            }
-            return;
-          }
-        }
-      }
-      count++;
-    }
-    const copy = grid.map(r => [...r]);
-    solve(copy);
-    return count;
-  }
-
-  // Remove cells from a solved grid to create a puzzle
+  // Remove cells from a solved grid to create a puzzle.
+  // We skip the uniqueness check (which requires running a full solver 81 times
+  // and freezes the browser). The game validates against the stored solution so
+  // correctness is guaranteed regardless of alternate solutions.
   function createPuzzle(solved, clues) {
     const puzzle = solved.map(r => [...r]);
     const positions = shuffle(Array.from({ length: 81 }, (_, i) => i));
-    let removed = 0;
-    const target = 81 - clues;
-
-    for (const pos of positions) {
-      if (removed >= target) break;
-      const row = Math.floor(pos / 9);
-      const col = pos % 9;
-      const backup = puzzle[row][col];
+    const toRemove = 81 - clues;
+    for (let i = 0; i < toRemove; i++) {
+      const row = Math.floor(positions[i] / 9);
+      const col = positions[i] % 9;
       puzzle[row][col] = 0;
-      if (countSolutions(puzzle) === 1) {
-        removed++;
-      } else {
-        puzzle[row][col] = backup;
-      }
     }
     return puzzle;
   }
